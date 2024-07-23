@@ -12,17 +12,17 @@ import Sidebar from "./Sidebar";
 import Invoice from "./Invoice";
 import ViewOrders from "./ViewOrders";
 
-
 const Dashboard = () => {
   return (
     <Box
       sx={{
         display: "flex",
         flexDirection: "column",
-        minWidth: "100vw",
-        minHeight: "100vh",
+        height: "100vh", // Use 100vh to take full viewport height
+        width: "100vw",  // Use 100vw to take full viewport width
         overflow: "hidden", // Hide scroll bars
-        margin: "-8px",
+        margin: "-8px", // Reset margin
+        padding: 0, // Reset padding
       }}
     >
       {/* Top Bar */}
@@ -30,7 +30,6 @@ const Dashboard = () => {
         sx={{
           height: "50px",
           backgroundColor: "lightblue",
-          marginBottom: "5px",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
@@ -44,25 +43,33 @@ const Dashboard = () => {
         sx={{
           display: "flex",
           flexGrow: 1,
-          justifyContent: "stretch",
-          alignItems: "stretch",
+          overflow: "hidden", // Hide overflow
+          padding: 1
         }}
       >
-        <Grid container spacing={1} sx={{ minHeight: "100%" }}>
-          <Grid item xs={6} md={2}>
+        <Grid container sx={{ flexGrow: 1, height: "100%" }}>
+          <Grid item xs={12} md={2} sx={{ height: "100%" }}>
             <Paper
               sx={{
                 height: "100%",
+                overflowY: "auto", // Enable vertical scroll if needed
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
+                paddingRight: 1
               }}
             >
               <Sidebar />
             </Paper>
           </Grid>
-          <Grid item xs={6} md={10}>
-            <Paper sx={{ height: "100%" }}>
+          <Grid item xs={12} md={10} sx={{ height: "100%" }}>
+            <Paper
+              sx={{
+                height: "100%",
+                paddingLeft: 1,
+                overflowY: "auto", // Enable vertical scroll if needed
+              }}
+            >
               <Routes>
                 <Route path="/" element={<Products />} />
                 <Route path="/cart" element={<Cart />} />

@@ -30,6 +30,7 @@ const ViewOrders = () => {
                                             </Typography>
                                         </Box>
                                     ))}
+                                    <Typography variant="body1"> Total: ${order.total}</Typography>
                                 </CardContent>
                             </Card>
                         </Grid>

@@ -36,8 +36,8 @@ const Products = () => {
 
   return (
     <Box sx={{ display: 'flex' }}>
-      <Box sx={{ flexGrow: 1, padding: 3 }}>
-        <Typography variant="h4" sx={{ marginBottom: '30px' }}>
+      <Box sx={{ flexGrow: 1, padding: 2 }}>
+        <Typography variant="h4" sx={{ marginBottom: '20px' }}>
           Products
         </Typography>
         <Box sx={{ mb: 2 }}>

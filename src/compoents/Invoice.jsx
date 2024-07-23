@@ -1,35 +1,52 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
-import { Box, Typography, Grid } from '@mui/material';
+// src/components/Invoice.jsx
+
+import React, { useEffect, useState } from 'react';
+import { Box, Typography, Card, CardContent, Grid, Button } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
 const Invoice = () => {
-  const { order } = useSelector((state) => state.products);
+  const [order, setOrder] = useState(null);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const orders = JSON.parse(localStorage.getItem('orders')) || [];
+    if (orders.length === 0) {
+      navigate('/');
+      return;
+    }
+    setOrder(orders[orders.length - 1]); // Get the most recent order
+  }, [navigate]);
 
   return (
     <Box sx={{ padding: 3 }}>
       <Typography variant="h4" gutterBottom>
-        Invoice
+        Order Summary
       </Typography>
       {order ? (
-        <Grid container spacing={2}>
-          {order.products.map((item) => (
-            <Grid item key={item.id} xs={12}>
-              <Box sx={{ display: 'flex', justifyContent: 'space-between', paddingBottom: 2 }}>
-                <Typography variant="body1">
-                  {item.title} - ${item.price} x {item.count}
-                </Typography>
-                <Typography variant="body1">
-                  ${item.price * item.count}
-                </Typography>
-              </Box>
+        <Card>
+          <CardContent>
+            <Typography variant="h6">Order Date: {new Date(order.date).toLocaleDateString()}</Typography>
+            <Typography variant="h6">Total: ${order.total}</Typography>
+            {/* <Typography variant="h6">User: {order.user.name}</Typography> */}
+            <Typography variant="h6">Items:</Typography>
+            <Grid container spacing={2}>
+              {order.items.map((item) => (
+                <Grid item key={item.id} xs={12}>
+                  <Typography variant="body1">
+                    {item.title} - ${item.price} x {item.count}
+                  </Typography>
+                </Grid>
+              ))}
             </Grid>
-          ))}
-        </Grid>
+          </CardContent>
+        </Card>
       ) : (
         <Typography variant="body1">No order details available</Typography>
       )}
-      <Box sx={{ mt: 3, textAlign: 'right' }}>
-        <Typography variant="h6">Total: ${order ? order.totalPrice : '0.00'}</Typography>
+      <Box sx={{ mt: 2 }}>
+        <Button variant="contained" color="primary" onClick={() => navigate('/')}>
+          Back to Home
+        </Button>
       </Box>
     </Box>
   );

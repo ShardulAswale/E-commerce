@@ -8,11 +8,11 @@ import { performLogin } from "../redux/product/productActions";
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
   const handleLogin = () => {
-    dispatch(performLogin({ email, password }));
+    dispatch(performLogin(username, password));
     navigate('/');
   };
 
@@ -20,10 +20,10 @@ const Login = () => {
     <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100vh' }}>
       <Typography variant="h4" sx={{ marginBottom: 2 }}>Login</Typography>
       <TextField
-        label="Email"
+        label="Username"
         variant="outlined"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
+        value={username}
+        onChange={(e) => setUsername(e.target.value)}
         sx={{ marginBottom: 2 }}
       />
       <TextField

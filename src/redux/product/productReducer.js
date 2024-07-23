@@ -13,7 +13,7 @@ const initialState = {
   },
   loading: false,
   error: null,
-  currentUser: { user: "admin", password: "admin" },
+  currentUser: JSON.parse(localStorage.getItem('currentUser')) || null,
 };
 
 const productSlice = createSlice({

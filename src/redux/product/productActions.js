@@ -33,10 +33,18 @@ export const performLogin = (username, password) => dispatch => {
   const validPassword = "admin";
 
   if (username === validUsername && password === validPassword) {
-    dispatch(loginSuccessAction({ username }));
+    const user = { username }; // Example user object
+    dispatch(loginSuccessAction(user));
+    localStorage.setItem('currentUser', JSON.stringify(user));
   } else {
     dispatch(loginFailureAction("Invalid credentials"));
   }
+};
+
+// Logout action
+export const logoutUser = () => dispatch => {
+  dispatch(logoutAction());
+  localStorage.removeItem('currentUser');
 };
 
 // src/redux/product/productActions.js
@@ -106,12 +114,16 @@ export const deleteFromCart = (product) => (dispatch, getState) => {
 export const placeOrder = () => (dispatch, getState) => {
   const { carts } = getState().products;
 
+  // Calculate the total price of the order
+  const total = carts.reduce((sum, item) => sum + (item.price * item.count), 0).toFixed(2);
+
   // Save the order to local storage
   const orders = JSON.parse(localStorage.getItem('orders')) || [];
   const order = {
     id: new Date().toISOString(), // Use timestamp as unique order ID
     items: carts,
-    date: new Date().toISOString()
+    date: new Date().toISOString(),
+    total
   };
   orders.push(order);
   localStorage.setItem('orders', JSON.stringify(orders));
@@ -121,10 +133,7 @@ export const placeOrder = () => (dispatch, getState) => {
   localStorage.setItem('cart', JSON.stringify([])); // Clear cart in local storage
 };
 
-// Logout action
-export const logoutUser = () => dispatch => {
-  dispatch(logoutAction());
-};
+
 
 // Filter products
 export const filterProducts = (filters) => (dispatch) => {
