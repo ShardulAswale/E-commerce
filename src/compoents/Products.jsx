@@ -45,7 +45,8 @@ const Products = () => {
             <option value="priceAsc">Sort by Price: Low to High</option>
             <option value="priceDesc">Sort by Price: High to Low</option>
             <option value="title">Sort by Title</option>
-            <option value="rating">Sort by Rating</option>
+            <option value="ratingAsc">Sort by Rating: Low to High</option>
+            <option value="ratingDesc">Sort by Rating: High to Low</option>
           </select>
         </Box>
         {loading ? (

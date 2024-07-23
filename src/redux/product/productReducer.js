@@ -74,14 +74,20 @@ const productSlice = createSlice({
       state.filteredProducts = state.products.filter(product => {
         let match = true;
 
+        // Filter by category
         if (category && product.category !== category) {
           match = false;
         }
 
-        if (rating && product.rating < rating) {
-          match = false;
+        // Filter by rating
+        if (rating !== undefined && rating !== null) {
+          // Ensure rating is a number and compare with product.rating.rate
+          if (product.rating.rate < rating) {
+            match = false;
+          }
         }
 
+        // Filter by price range
         if (priceRange) {
           const [minPrice, maxPrice] = priceRange;
           if (product.price < minPrice || product.price > maxPrice) {
@@ -93,17 +99,23 @@ const productSlice = createSlice({
       });
     },
     sortProductsAction(state, action) {
-      if (action.payload === 'priceAsc') {
+      const sortBy = action.payload;
+
+      if (sortBy === 'priceAsc') {
         state.filteredProducts.sort((a, b) => a.price - b.price);
-      } else if (action.payload === 'priceDesc') {
+      } else if (sortBy === 'priceDesc') {
         state.filteredProducts.sort((a, b) => b.price - a.price);
-      } else if (action.payload === 'rating') {
-        state.filteredProducts.sort((a, b) => b.rating - a.rating);
-      } else if (action.payload === 'title') {
+      } else if (sortBy === 'ratingAsc') {
+        state.filteredProducts.sort((a, b) => a.rating.rate - b.rating.rate);
+      } else if (sortBy === 'ratingDesc') {
+        state.filteredProducts.sort((a, b) => b.rating.rate - a.rating.rate);
+      } else if (sortBy === 'title') {
         state.filteredProducts.sort((a, b) => a.title.localeCompare(b.title));
       }
-      state.sortOption = action.payload;
+
+      state.sortOption = sortBy;
     },
+
     placeOrderAction(state, action) {
       console.log("Order placed:", action.payload);
       state.carts = []; // Clear the cart after placing the order

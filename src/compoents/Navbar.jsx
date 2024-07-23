@@ -39,11 +39,11 @@ export default function NavBar() {
   return (
     <React.Fragment>
       <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
-        <Typography sx={{ minWidth: 100 }}>
-          <Link href="/">Products</Link>
+        <Typography sx={{ minWidth: 100 }} component="a" href="/">
+          Products
         </Typography>
-        <Typography sx={{ minWidth: 100 }}>
-          <Link href="/cart">Cart</Link>
+        <Typography sx={{ minWidth: 100 }} component="a" href="/cart">
+          Cart
         </Typography>
         {currentUser ? (
           <Tooltip title="Account settings">
@@ -103,10 +103,10 @@ export default function NavBar() {
           <MenuItem onClick={handleClose}>
             <Avatar /> Cart
           </MenuItem>
-          <MenuItem onClick={handleClose}>
-            <Link href="/orders">
-              <Avatar /> My Orders
-            </Link>
+          <MenuItem onClick={handleClose} component="a" href="/orders">
+            {/* <Link href="/orders"> */}
+            <Avatar /> My Orders
+            {/* </Link> */}
           </MenuItem>
           <MenuItem onClick={handleLogout}>
             <ListItemIcon>
