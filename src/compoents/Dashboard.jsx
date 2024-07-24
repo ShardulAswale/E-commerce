@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
@@ -12,8 +12,19 @@ import Sidebar from "./Sidebar";
 import Invoice from "./Invoice";
 import ViewOrders from "./ViewOrders";
 import MiniProducts from "./MiniProducts";
+import IconButton from "@mui/material/IconButton";
+import MenuIcon from "@mui/icons-material/Menu";
+import Drawer from "@mui/material/Drawer";
+import useMediaQuery from "@mui/material/useMediaQuery";
 
 const Dashboard = () => {
+  const [drawerOpen, setDrawerOpen] = useState(false);
+  const isSmallScreen = useMediaQuery("(max-width:960px)"); // Adjust the breakpoint as needed
+
+  const toggleDrawer = () => {
+    setDrawerOpen(!drawerOpen);
+  };
+
   return (
     <Box
       sx={{
@@ -34,9 +45,21 @@ const Dashboard = () => {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
+          padding: "0 16px",
         }}
       >
         <NavBar />
+        {isSmallScreen && (
+          <IconButton
+            edge="end"
+            color="inherit"
+            aria-label="menu"
+            onClick={toggleDrawer}
+            style={{ position: "absolute", right: "16px" }}
+          >
+            <MenuIcon />
+          </IconButton>
+        )}
       </Paper>
 
       {/* Sidebar and Main Content */}
@@ -45,46 +68,87 @@ const Dashboard = () => {
           display: "flex",
           flexGrow: 1,
           overflow: "hidden", // Hide overflow
-          padding: 1
         }}
       >
-        <Grid container sx={{ flexGrow: 1, height: "100%" }}>
-          <Grid item xs={12} md={2} sx={{ height: "100%" }}>
-            <Paper
+        {isSmallScreen ? (
+          <>
+            <Drawer anchor="left" open={drawerOpen} onClose={toggleDrawer}>
+              <Box
+                sx={{ width: 250, paddingTop: "20px", marginRight: isSmallScreen ? "30px" : 0 }}
+                role="presentation"
+                onClick={toggleDrawer}
+                onKeyDown={toggleDrawer}
+              >
+                <Routes>
+                  <Route path="/" element={<Sidebar />} />
+                  <Route path="/" element={<MiniProducts />} />
+                </Routes>
+              </Box>
+            </Drawer>
+            <Box
               sx={{
-                height: "100%",
+                flexGrow: 1,
                 overflowY: "auto", // Enable vertical scroll if needed
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                paddingRight: 1
+                padding: 1,
               }}
             >
-              <Routes>
-                <Route path="/" element={<Sidebar />} />
-                <Route path="/*" element={<MiniProducts />} />
-              </Routes>
-            </Paper>
+              <Paper
+                sx={{
+                  height: "100%",
+                  paddingLeft: 1,
+                  overflowY: "auto", // Enable vertical scroll if needed
+                }}
+              >
+                <Routes>
+                  <Route path="/" element={<Products />} />
+                  <Route path="/cart" element={<Cart />} />
+                  <Route path="/login" element={<Login />} />
+                  <Route path="/users" element={<Users />} />
+                  <Route path="/invoice" element={<Invoice />} />
+                  <Route path="/orders" element={<ViewOrders />} />
+                </Routes>
+              </Paper>
+            </Box>
+          </>
+        ) : (
+          <Grid container sx={{ flexGrow: 1, height: "100%" }}>
+            <Grid item xs={12} md={2} sx={{ height: "100%" }}>
+              <Paper
+                sx={{
+                  height: "100%",
+                  overflowY: "auto", // Enable vertical scroll if needed
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  paddingRight: 1,
+                }}
+              >
+                <Routes>
+                  <Route path="/" element={<Sidebar />} />
+                  <Route path="/*" element={<MiniProducts />} />
+                </Routes>
+              </Paper>
+            </Grid>
+            <Grid item xs={12} md={10} sx={{ height: "100%" }}>
+              <Paper
+                sx={{
+                  height: "100%",
+                  paddingLeft: 1,
+                  overflowY: "auto", // Enable vertical scroll if needed
+                }}
+              >
+                <Routes>
+                  <Route path="/" element={<Products />} />
+                  <Route path="/cart" element={<Cart />} />
+                  <Route path="/login" element={<Login />} />
+                  <Route path="/users" element={<Users />} />
+                  <Route path="/invoice" element={<Invoice />} />
+                  <Route path="/orders" element={<ViewOrders />} />
+                </Routes>
+              </Paper>
+            </Grid>
           </Grid>
-          <Grid item xs={12} md={10} sx={{ height: "100%" }}>
-            <Paper
-              sx={{
-                height: "100%",
-                paddingLeft: 1,
-                overflowY: "auto", // Enable vertical scroll if needed
-              }}
-            >
-              <Routes>
-                <Route path="/" element={<Products />} />
-                <Route path="/cart" element={<Cart />} />
-                <Route path="/login" element={<Login />} />
-                <Route path="/users" element={<Users />} />
-                <Route path="/invoice" element={<Invoice />} />
-                <Route path="/orders" element={<ViewOrders />} />
-              </Routes>
-            </Paper>
-          </Grid>
-        </Grid>
+        )}
       </Box>
     </Box>
   );
