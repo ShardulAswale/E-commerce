@@ -64,30 +64,6 @@ const MiniProducts = () => {
                   Price: ${product.price}
                 </Typography>
               </CardContent>
-
-              {/* {isInCart ? ( */}
-              {/* <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                  <Button
-                    variant="contained"
-                    color="secondary"
-                    size="small"
-                    onClick={() => handleRemoveFromCart(product)}
-                  >
-                    <DeleteForeverIcon />
-                  </Button>
-                  <Typography variant="body2" sx={{ margin: "0px 5px" }}>
-                    Count: {carts.find(cart => cart.id === product.id)?.count || 0}
-                  </Typography>
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    size="small"
-                    onClick={() => handleAddToCart(product)}
-                  >
-                    <AddIcon />
-                  </Button>
-                </Box>
-              ) : ( */}
               <Box sx={{ display: 'flex', alignItems: 'center' }}>
 
                 <Button
@@ -99,7 +75,6 @@ const MiniProducts = () => {
                   Add to Cart
                 </Button>
               </Box>
-              {/* )} */}
 
             </Card>
           );
