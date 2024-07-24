@@ -16,6 +16,7 @@ const initialState = {
   currentUser: JSON.parse(localStorage.getItem('currentUser')) || null,
 };
 
+
 const productSlice = createSlice({
   name: 'products',
   initialState,
@@ -32,6 +33,32 @@ const productSlice = createSlice({
     fetchDataFailure(state, action) {
       state.loading = false;
       state.error = action.payload;
+    },
+    ordersCleanup(state, action) {
+      //clean up in hours
+      // console.log("in cleanup " + JSON.stringify(state.orders.map(o => o.date)));
+      // let newOrders = state.orders.filter(order => {
+      //   const now = new Date();
+      //   const orderDate = new Date(order.date);
+      //   const diffInHours = Math.floor((now - orderDate) / (1000 * 60 * 60));
+      //   return diffInHours <= 3;
+      // });
+      // console.log("after cleanup " + JSON.stringify(newOrders.map(o => o.date)));
+      // state.orders = newOrders;
+
+
+      //cleanup in seconds
+      console.log("in cleanup " + JSON.stringify(state.orders.map(o => o.date)));
+      let newOrders = state.orders.filter(order => {
+        const now = new Date();
+        const orderDate = new Date(order.date);
+        const diffInSeconds = Math.floor((now - orderDate) / 1000);
+        return diffInSeconds <= 15;
+      });
+      console.log("after cleanup " + JSON.stringify(newOrders.map(o => o.date)));
+      state.orders = newOrders;
+
+      localStorage.setItem('orders', JSON.stringify(state.orders));
     },
     insertProductAction(state, action) {
       state.products.push(action.payload);
@@ -139,7 +166,8 @@ export const {
   logoutAction,
   filterProductsAction,
   sortProductsAction,
-  placeOrderAction
+  placeOrderAction,
+  ordersCleanup
 } = productSlice.actions;
 
 export default productSlice.reducer;

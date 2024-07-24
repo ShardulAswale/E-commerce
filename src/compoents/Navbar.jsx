@@ -55,7 +55,7 @@ export default function NavBar() {
               aria-haspopup="true"
               aria-expanded={open ? 'true' : undefined}
             >
-              <Avatar sx={{ width: 32, height: 32 }}>M</Avatar>
+              <Avatar sx={{ width: 32, height: 32 }}>{currentUser.username[0]}</Avatar>
             </IconButton>
           </Tooltip>
         ) : (

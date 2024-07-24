@@ -11,6 +11,7 @@ import Users from "./Users";
 import Sidebar from "./Sidebar";
 import Invoice from "./Invoice";
 import ViewOrders from "./ViewOrders";
+import MiniProducts from "./MiniProducts";
 
 const Dashboard = () => {
   return (
@@ -59,7 +60,10 @@ const Dashboard = () => {
                 paddingRight: 1
               }}
             >
-              <Sidebar />
+              <Routes>
+                <Route path="/" element={<Sidebar />} />
+                <Route path="/*" element={<MiniProducts />} />
+              </Routes>
             </Paper>
           </Grid>
           <Grid item xs={12} md={10} sx={{ height: "100%" }}>

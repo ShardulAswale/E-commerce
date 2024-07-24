@@ -6,8 +6,10 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import CardMedia from '@mui/material/CardMedia';
+import { Grid } from '@mui/material';
 import { addToCart, fetchInitialData, removeFromCart, sortProducts } from '../redux/product/productActions';
 import AddIcon from '@mui/icons-material/Add';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 
 const Products = () => {
   const dispatch = useDispatch();
@@ -60,68 +62,81 @@ const Products = () => {
             {filteredProducts.map((product) => {
               const isInCart = carts.some(cart => cart.id === product.id);
               return (
-                <Card key={product.id} sx={{ display: 'flex', flexDirection: 'row', mb: 2, width: '100%' }}>
-                  <CardMedia
-                    component="img"
-                    image={product.image}
-                    alt={product.title}
-                    sx={{ width: 400, height: 400, objectFit: 'cover' }}
-                  />
-                  <CardContent sx={{ display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
-                    <Typography variant="h6" component="div" gutterBottom>
-                      {product.title}
-                    </Typography>
-                    <Typography variant="body2" color="text.secondary" sx={{ flexGrow: 1 }}>
-                      {product.description}
-                    </Typography>
-                    <Typography variant="h6" color="text.secondary" sx={{ flexGrow: 1 }}>
-                      Rating: {product.rating.rate}
-                    </Typography>
-                    <Typography variant="h6" color="text.secondary" gutterBottom>
-                      Price: ${product.price}
-                    </Typography>
-                    {isInCart ? (
-                      <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                        <Button
-                          variant="contained"
-                          color="secondary"
-                          size="small"
-                          onClick={() => handleRemoveFromCart(product)}
-                        >
-                          Remove from Cart
-                        </Button>
-                        <Typography variant="body2" sx={{ marginLeft: 2 }}>
-                          Count: {carts.find(cart => cart.id === product.id)?.count || 0}
+                <Grid container key={product.id}>
+                  <Card key={product.id} sx={{ display: 'flex', flexDirection: 'row', mb: 2, width: '100%' }}>
+                    <Grid item xs={3}>
+                      <CardMedia
+                        component="img"
+                        image={product.image}
+                        alt={product.title}
+                        sx={{ width: "100%", height: "100%", objectFit: 'cover' }}
+                      />
+                    </Grid>
+                    <Grid item xs={7} >
+                      <CardContent sx={{ display: 'flex', flexDirection: 'column', flexGrow: 1, }}>
+                        <Typography variant="h6" component="div" gutterBottom>
+                          {product.title}
                         </Typography>
-                        <Button
-                          variant="contained"
-                          color="primary"
-                          size="small"
-                          onClick={() => handleAddToCart(product)}
-                        >
-                          <AddIcon />
-                        </Button>
-                      </Box>
-                    ) : (
-                      <Button
-                        variant="contained"
-                        color="primary"
-                        size="small"
-                        onClick={() => handleAddToCart(product)}
-                      >
-                        Add to Cart
-                      </Button>
-                    )}
-                  </CardContent>
-                </Card>
+                        <Typography variant="body2" color="text.secondary" sx={{ flexGrow: 1 }}>
+                          {product.description}
+                        </Typography>
+                        <Typography variant="h6" color="text.secondary" sx={{ flexGrow: 1 }}>
+                          Rating: {product.rating.rate}
+                        </Typography>
+                        <Typography variant="h6" color="text.secondary" gutterBottom>
+                          Price: ${product.price}
+                        </Typography>
+                      </CardContent>
+                    </Grid>
+                    <Grid item xs={2} sx={{ alignItems: 'center', justifyContent: 'center', display: 'flex' }}>
+                      {isInCart ? (
+                        <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                          <Button
+                            variant="contained"
+                            color="secondary"
+                            size="small"
+                            onClick={() => handleRemoveFromCart(product)}
+                          >
+                            <DeleteForeverIcon />
+                          </Button>
+                          <Typography variant="body2" sx={{ margin: "0px 5px" }}>
+                            Count: {carts.find(cart => cart.id === product.id)?.count || 0}
+                          </Typography>
+                          <Button
+                            variant="contained"
+                            color="primary"
+                            size="small"
+                            onClick={() => handleAddToCart(product)}
+                          >
+                            <AddIcon />
+                          </Button>
+                        </Box>
+                      ) : (
+                        <Box sx={{ display: 'flex', alignItems: 'center' }}>
+
+                          <Button
+                            variant="contained"
+                            color="primary"
+                            size="small"
+                            onClick={() => handleAddToCart(product)}
+                          >
+                            Add to Cart
+                          </Button>
+                        </Box>
+                      )}
+
+                    </Grid>
+                  </Card>
+                </Grid>
               );
             })}
           </Box>
         ) : (
           <Typography variant="body1">No products to show</Typography>
-        )}
-      </Box>
-    </Box>
+        )
+        }
+      </Box >
+    </Box >
   );
 };
 

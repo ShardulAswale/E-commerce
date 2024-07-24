@@ -1,12 +1,17 @@
 // src/components/ViewOrders.jsx
 
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Box, Card, CardContent, Typography, Grid } from '@mui/material';
+import { ordersCleanup } from '../redux/product/productReducer';
 
 const ViewOrders = () => {
     // Correctly access the orders from the Redux state
     const { orders } = useSelector((state) => state.products);
+    const dispatch = useDispatch();
+    useEffect(()=>{
+        dispatch(ordersCleanup())
+    },[])
 
     return (
         <Box sx={{ padding: 3 }}>

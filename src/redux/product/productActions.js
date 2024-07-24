@@ -13,6 +13,7 @@ import {
   placeOrderAction,
   filterProductsAction,
   sortProductsAction,
+  ordersCleanup,
 
 } from './productReducer';
 
@@ -21,6 +22,7 @@ export const fetchInitialData = () => async dispatch => {
   dispatch(fetchDataStart());
   try {
     const products = await axios.get('https://fakestoreapi.com/products');
+    dispatch(ordersCleanup());
     dispatch(fetchDataSuccess({ products: products.data }));
   } catch (error) {
     dispatch(fetchDataFailure(error.message));
