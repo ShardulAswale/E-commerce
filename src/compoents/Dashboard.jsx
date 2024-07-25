@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
@@ -16,14 +16,21 @@ import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import Drawer from "@mui/material/Drawer";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import { fetchInitialData } from "../redux/product/productActions";
+import { useDispatch } from "react-redux";
 
 const Dashboard = () => {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const isSmallScreen = useMediaQuery("(max-width:960px)"); // Adjust the breakpoint as needed
+  const dispatch = useDispatch();
 
   const toggleDrawer = () => {
     setDrawerOpen(!drawerOpen);
   };
+
+  useEffect(() => {
+    dispatch(fetchInitialData());
+  }, [dispatch]);
 
   return (
     <Box

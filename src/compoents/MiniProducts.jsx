@@ -1,11 +1,12 @@
 import { Box, Button, Card, CardContent, CardMedia, Grid, Typography } from '@mui/material';
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { addToCart, removeFromCart } from '../redux/product/productActions';
+import { addToCart } from '../redux/product/productActions';
 
 const MiniProducts = () => {
   const { products, carts } = useSelector((state) => state.products);
-  const [MiniProducts, setMiniProducts] = useState(products);
+  const [MiniProducts, setMiniProducts] = useState(products); 
+  console.log(MiniProducts, products)
   const dispatch = useDispatch();
 
 
@@ -13,6 +14,7 @@ const MiniProducts = () => {
     if (carts.length === 0)
       setMiniProducts(products)
     else {
+      const categoriesInCart = carts.map(cart => cart.category);
       const prod = products.filter(product =>
         !carts.some(cart => cart.id === product.id) && // Product is not in cart
         categoriesInCart.includes(product.category)    // Product category is in the list of categories in cart
@@ -20,15 +22,11 @@ const MiniProducts = () => {
       console.log(prod)
       setMiniProducts(prod)
     }
-  }, [carts]);
+  }, [carts, products]);
 
 
   const handleAddToCart = (product) => {
     dispatch(addToCart(product));
-  };
-
-  const handleRemoveFromCart = (product) => {
-    dispatch(removeFromCart(product));
   };
 
   return (
@@ -75,10 +73,10 @@ const MiniProducts = () => {
                   Add to Cart
                 </Button>
               </Box>
-
             </Card>
           );
         })}
+
       </Box>
     </Box>
   )
