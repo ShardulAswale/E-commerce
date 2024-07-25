@@ -36,7 +36,7 @@ This project is an advanced e-commerce dashboard application built using React a
 
 2. **Install dependencies**
     ```bash
-    npm install --peer-deps
+    npm install --legacy-peer-deps
     ```
 
 3. **Start the development server**
