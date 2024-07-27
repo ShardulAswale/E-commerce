@@ -47,7 +47,7 @@ const Dashboard = () => {
       {/* Top Bar */}
       <Paper
         sx={{
-          height: "50px",
+          minHeight: "50px",
           backgroundColor: "lightblue",
           display: "flex",
           alignItems: "center",
