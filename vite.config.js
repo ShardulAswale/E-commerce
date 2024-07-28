@@ -6,7 +6,6 @@ import react from '@vitejs/plugin-react'
 export default defineConfig(({ command }) => {
   const config = {
     plugins: [react()],
-    base: '/E-commerce/',
     server: {
       watch: {
         ignored: ["!**/node_modules/autopreview/**"],
@@ -20,7 +19,7 @@ export default defineConfig(({ command }) => {
   }
 
   if (command !== 'serve') {
-    config.base = '/E-commerce/'
+    config.base = '/E-commerce/'  // Set base path for production
   }
 
   return config
