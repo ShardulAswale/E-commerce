@@ -108,7 +108,7 @@ const Dashboard = () => {
                 }}
               >
                 <Routes>
-                  <Route path="/" element={<Products />} />
+                  <Route path="/E-commerce/" element={<Products />} />
                   <Route path="/cart" element={<Cart />} />
                   <Route path="/login" element={<Login />} />
                   <Route path="/users" element={<Users />} />
@@ -147,7 +147,7 @@ const Dashboard = () => {
                 }}
               >
                 <Routes>
-                  <Route path="/" element={<Products />} />
+                  <Route path="/E-commerce/" element={<Products />} />
                   <Route path="/cart" element={<Cart />} />
                   <Route path="/login" element={<Login />} />
                   <Route path="/users" element={<Users />} />
