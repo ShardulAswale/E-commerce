@@ -28,29 +28,18 @@ This project is an advanced e-commerce dashboard application built using React a
 
 ## Installation
 
-1. **Clone the repository**
-    ```bash
-    git clone https://github.com/yourusername/your-repo-name.git
-    cd your-repo-name
-    ```
-
-2. **Install dependencies**
+1. **Install dependencies**
     ```bash
     npm install --legacy-peer-deps
     ```
 
-3. **Start the development server**
+2. **Start the development server**
     ```bash
-    npm start
+    npm run dev
     ```
 
 
 ## License
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
-
-## Contact
-For any questions or feedback, please reach out to [your-email@example.com].
-
----
 
 This project is a comprehensive solution for dynamic product management and responsive design, offering a robust platform for modern e-commerce applications.
