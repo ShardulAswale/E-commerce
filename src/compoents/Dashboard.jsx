@@ -18,6 +18,7 @@ import Drawer from "@mui/material/Drawer";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { fetchInitialData } from "../redux/product/productActions";
 import { useDispatch } from "react-redux";
+import Page404 from "./Page404";
 
 const Dashboard = () => {
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -88,7 +89,7 @@ const Dashboard = () => {
               >
                 <Routes>
                   <Route path="/" element={<Sidebar />} />
-                  <Route path="/" element={<MiniProducts />} />
+                  <Route path="/*" element={<MiniProducts />} />
                 </Routes>
               </Box>
             </Drawer>
@@ -113,6 +114,7 @@ const Dashboard = () => {
                   <Route path="/users" element={<Users />} />
                   <Route path="/invoice" element={<Invoice />} />
                   <Route path="/orders" element={<ViewOrders />} />
+                  <Route path="/*" element={<Page404 />} />
                 </Routes>
               </Paper>
             </Box>
@@ -151,6 +153,7 @@ const Dashboard = () => {
                   <Route path="/users" element={<Users />} />
                   <Route path="/invoice" element={<Invoice />} />
                   <Route path="/orders" element={<ViewOrders />} />
+                  <Route path="/*" element={<Page404 />} />
                 </Routes>
               </Paper>
             </Grid>
