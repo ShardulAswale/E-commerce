@@ -1,45 +1,24 @@
-# E-Commerce Dashboard with Dynamic Product Filtering
+# E-Commerce Frontend
 
-## Overview
-This project is an advanced e-commerce dashboard application built using React and Material-UI. It features dynamic product filtering based on user cart interactions and an adaptive interface that ensures optimal viewing across various devices.
+React, Redux and Material UI shopping dashboard built with Vite.
 
-## Features
+## How it works
 
-### Responsive Dashboard Layout
-- **Flexible Grid System**: Uses Material-UI’s Grid system to ensure the dashboard adjusts seamlessly to different screen sizes.
-- **Adaptive Navigation**: Includes a collapsible sidebar that transforms into a hamburger menu for better usability on smaller screens.
+The application fetches products from Fake Store API, manages cart quantities in Redux and saves cart, login and order data in browser local storage. Routes display products, cart, login, users, invoices and orders. A secondary product view selects categories represented in the cart and excludes items already added.
 
-### Advanced Product Filtering
-- **Cart-Based Filtering**: Automatically filters products based on the user’s cart contents, ensuring users can easily find items from categories already in their cart while excluding items they have already added.
-- **Real-Time Updates**: Utilizes React’s state management and `useEffect` hook to ensure product listings are updated in real-time as items are added or removed from the cart.
+## Usage
 
-### Comprehensive Product and Cart Management
-- **Product Listing**: Displays a detailed list of products with relevant information such as title, price, description, category, and image.
-- **Cart Operations**: Allows users to add and remove items from the cart with real-time feedback and updates to the product listing.
+Requires Node.js and npm. From the repository root:
 
-### User Interface Components
-- **Navigation Bar**: A top bar navigation that includes user actions and dynamically adjusts to include a menu button on smaller screens.
-- **Side Drawer**: A sidebar that provides navigation options and collapses into a drawer for smaller screen devices.
-- **Product Display**: Dedicated components for displaying full product lists (`Products`) and a minimized view (`MiniProducts`) based on user cart interactions.
+```sh
+npm install
+npm run dev
+```
 
-### Routing and Navigation
-- **React Router Integration**: Uses `react-router-dom` to manage navigation between different views such as Products, Cart, Login, Users, Invoice, and Orders.
-- **Drawer Navigation**: Ensures smooth navigation within the sidebar and main content areas, maintaining context and state across different routes.
+Open the address printed by Vite. `npm run build` writes the static production files to `dist/`.
 
-## Installation
+Internet access is required for product loading from the external API.
 
-1. **Install dependencies**
-    ```bash
-    npm install --legacy-peer-deps
-    ```
+## Notes
 
-2. **Start the development server**
-    ```bash
-    npm run dev
-    ```
-
-
-## License
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
-
-This project is a comprehensive solution for dynamic product management and responsive design, offering a robust platform for modern e-commerce applications.
+Login checks the demonstration credentials `admin` / `admin` in frontend code. Orders and invoices are local simulations; no payment processing or application backend is included.
